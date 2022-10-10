@@ -5,3 +5,8 @@
 ./start.sh
 ./stop.sh
 ```
+
+## Endpoint:
+```
+http://localhost:8080
+```

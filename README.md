@@ -1,1 +1,7 @@
-# intrusion_management_api
+# intrusion-management-api
+
+## How to run:
+```
+./start.sh
+./stop.sh
+```

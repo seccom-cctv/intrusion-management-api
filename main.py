@@ -1,10 +1,18 @@
 from typing import Union
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
+from consumer import Video_Consumer
+import threading
+import boto3
+import shutil
+import os
 
 app = FastAPI()
 
 items = {"foo": "The Foo Wrestlers"}
 
+consumer_thread = None
+#client = boto3.client('secretsmanager')
+s3 = boto3.client("s3")
 
 @app.get("/")
 async def read_root():
@@ -12,12 +20,19 @@ async def read_root():
 
     return {"Hello": "World"}
 
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile =  File(...)):
+    fname = f"intruders/{file.filename}"
+    with open(fname, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: Union[str, None] = None):
-    '''Document endpoint usage here'''
+    s3.upload_file(
+        Filename=fname,
+        Bucket="seccom-video-store",
+        Key=file.filename
+    )
+    os.remove(fname)
 
-    if item_id not in items:
-        raise HTTPException(status_code=404, detail="Item not found")
+    return {"filename": file.filename}
 
-    return {"item_id": item_id, "q": q}
+

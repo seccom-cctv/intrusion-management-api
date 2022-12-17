@@ -34,7 +34,7 @@ async def create_upload_file(id: int, file: UploadFile =  File(...)):
 
     s3.upload_file(
         Filename=fname,
-        Bucket="seccom-video-store",
+        Bucket="seccom.video.store",
         Key=file.filename
     )
     os.remove(fname)

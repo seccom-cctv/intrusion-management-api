@@ -22,7 +22,7 @@ workflows:
           path: ./app/
           region: ${AWS_REGION}
           repo: ${CIRCLE_PROJECT_REPONAME}
-          tag: ${CIRCLE_BUILD_NUM}
+          tag: latest
           requires:
             - test
           filters:

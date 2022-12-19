@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.3
+
+jobs:
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Run Pytest Tests
+          command: |
+            pip install --upgrade pip
+            pip3 install -r app/requirements.txt
+            
+workflows:
+  build-and-test:
+    jobs:
+      - test
+      - aws-ecr/build-and-push-image:
+          path: ./app/
+          region: ${AWS_REGION}
+          repo: ${CIRCLE_PROJECT_REPONAME}
+          tag: latest
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - main

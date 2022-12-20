@@ -8,10 +8,12 @@ from kombu.mixins import ConsumerMixin
 import os
 from dotenv import load_dotenv
 import logging
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 
-load_dotenv() 
+path = Path("./.env")
+load_dotenv()
 
 RABBIT_MQ_URL = os.getenv("RABBIT_MQ_URL")
 RABBIT_MQ_USERNAME = os.getenv("RABBIT_MQ_USERNAME")

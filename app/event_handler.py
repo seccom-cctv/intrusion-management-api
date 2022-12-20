@@ -11,7 +11,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-load_dotenv()
+load_dotenv() 
 
 RABBIT_MQ_URL = os.getenv("RABBIT_MQ_URL")
 RABBIT_MQ_USERNAME = os.getenv("RABBIT_MQ_USERNAME")

@@ -72,7 +72,7 @@ def dispatch_notification(camera_id):
     r = requests.post(url = url)
   
     # extracting data in json format
-    data = r.json()
-    print(data)
+    # data = r.json()
+    # print(data)
 
     pass
